@@ -9,6 +9,9 @@ namespace HelmesBootcamp.Models{
         public BookingContext() : base("DefaultConnection") {
 
         }
+
         public DbSet<DbBooking> Bookings { get; set; }
+
+        public DbSet<DbGarage> Garages { get; set; }
     }
 }

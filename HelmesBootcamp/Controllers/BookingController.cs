@@ -13,25 +13,18 @@ namespace HelmesBootcamp.Controllers
     public class BookingController : Controller
     {
         private BookingContext db = new BookingContext();
-
-        //
-        // GET: /Booking/
-
+        
         public ActionResult Index()
         {
-            return View(db.Bookings.ToList());
+            return View(db.Bookings.OrderByDescending(i=>i.StartDateTime).ToList());
         }
-
-        //
-        // GET: /Booking/Create
 
         public ActionResult Create()
         {
+            ViewBag.Garages = db.Garages;
             return View();
         }
 
-        //
-        // POST: /Booking/Create
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -45,6 +38,11 @@ namespace HelmesBootcamp.Controllers
             }
 
             return View(dbbooking);
+        }
+
+        public ActionResult Details(int id)
+        {
+            return View(db.Bookings.FirstOrDefault(i=>i.Id==id));
         }
 
         protected override void Dispose(bool disposing)
