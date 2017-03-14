@@ -12,7 +12,7 @@ namespace HelmesBootcamp.Models {
     [Table("Booking")]
     public class DbBooking {
         [Key]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required]
         [Display(Name = "Booking information")]
