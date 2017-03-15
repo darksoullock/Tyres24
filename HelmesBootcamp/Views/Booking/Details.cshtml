@@ -1,4 +1,4 @@
-﻿@model HelmesBootcamp.Models.DbBooking
+﻿@model HelmesBootcamp.Models.DTO.BookingDTO
 
 @{
     ViewBag.Title = "Details";
@@ -72,6 +72,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.Comments)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ChangedAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChangedAt)
         </dd>
 
     </dl>

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HelmesBootcamp.Models.DbBooking>
+﻿@model IEnumerable<HelmesBootcamp.Models.DTO.BookingDTO>
 
 @{
     ViewBag.Title = "Index";
@@ -38,8 +38,13 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
+@foreach (var item in Model)
+{
+    string rowclass = "";
+    if (item.Edited) { rowclass = "active"; }
+    if (item.Cancelled) { rowclass = "danger"; }
+
+    <tr class="@rowclass">
         <td>
             @Html.DisplayFor(modelItem => item.Garage.Name)
         </td>
@@ -65,9 +70,9 @@
             @Html.DisplayFor(modelItem => item.Comments)
         </td>
         <td>
-            @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |*@
-            @Html.ActionLink("Details", "Details", new { id=item.Id })
-            @*@Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id })|
+            @Html.ActionLink("Cancel", "Cancel", new { id=item.Id })
         </td>
     </tr>
 }

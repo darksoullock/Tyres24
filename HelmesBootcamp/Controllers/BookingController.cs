@@ -7,49 +7,85 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using HelmesBootcamp.Models;
+using HelmesBootcamp.Models.DTO;
+using HelmesBootcamp.Models.DTO.Assemblers;
+using HelmesBootcamp.Repositories;
 
 namespace HelmesBootcamp.Controllers
 {
     public class BookingController : Controller
     {
-        private BookingContext db = new BookingContext();
-        
+        GenericRepository<DbBooking> bookingRepository;
+        GenericRepository<DbGarage> garageRepository;
+
+        public BookingController(GenericRepository<DbBooking> bookingRepository,
+                                GenericRepository<DbGarage> garageRepository)
+        {
+            this.bookingRepository = bookingRepository;
+            this.garageRepository = garageRepository;
+        }
+
         public ActionResult Index()
         {
-            return View(db.Bookings.OrderByDescending(i=>i.StartDateTime).ToList());
+            var bookings = bookingRepository.FindAllAsQueryable().OrderByDescending(i => i.StartDateTime).ToList();
+            return View(bookings.Select(i => new BookingDTO(i)).ToList());
         }
 
         public ActionResult Create()
         {
-            ViewBag.Garages = db.Garages;
+            ViewBag.Garages = garageRepository.FindAllAsQueryable();
             return View();
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(DbBooking dbbooking)
+        public ActionResult Create(BookingDTO booking)
         {
             if (ModelState.IsValid)
             {
-                db.Bookings.Add(dbbooking);
-                db.SaveChanges();
+                bookingRepository.Insert(BookingAssembler.Create(booking));
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Garages = db.Garages;
-            return View(dbbooking);
+            ViewBag.Garages = garageRepository.FindAllAsQueryable();
+            return View(booking);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            ViewBag.Garages = garageRepository.FindAllAsQueryable();
+            return View(new BookingDTO(bookingRepository.FindById(id)));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(BookingDTO booking)
+        {
+            if (ModelState.IsValid)
+            {
+                var entity = bookingRepository.FindById(booking.Id);
+                entity.ChangedAt = DateTime.Now;
+                entity.Edited = true;
+                bookingRepository.Update(BookingAssembler.Update(entity, booking));
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.Garages = garageRepository.FindAllAsQueryable();
+            return View(booking);
         }
 
         public ActionResult Details(int id)
         {
-            return View(db.Bookings.FirstOrDefault(i=>i.Id==id));
+            return View(new BookingDTO(bookingRepository.FindById(id)));
         }
 
-        protected override void Dispose(bool disposing)
+        public ActionResult Cancel(int id)
         {
-            db.Dispose();
-            base.Dispose(disposing);
+            var booking = bookingRepository.FindById(id);
+            booking.ChangedAt = DateTime.Now;
+            booking.Cancelled = true;
+            bookingRepository.Update(booking);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
