@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace HelmesBootcamp.Enums
+namespace HelmesBootcamp.Models.Enums
 {
     public enum VehicleType
     {

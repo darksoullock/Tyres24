@@ -37,6 +37,7 @@ namespace HelmesBootcamp.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.Garages = db.Garages;
             return View(dbbooking);
         }
 

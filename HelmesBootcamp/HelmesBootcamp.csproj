@@ -100,7 +100,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BookingController.cs" />
-    <Compile Include="Enums\VehicleType.cs" />
+    <Compile Include="Models\Enums\VehicleType.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -112,10 +112,17 @@
     <Compile Include="Migrations\201703141558432_create-garages.Designer.cs">
       <DependentUpon>201703141558432_create-garages.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703150915424_validation.cs" />
+    <Compile Include="Migrations\201703150915424_validation.Designer.cs">
+      <DependentUpon>201703150915424_validation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DbBooking.cs" />
     <Compile Include="Models\BookingContext.cs" />
     <Compile Include="Models\DbGarage.cs" />
+    <Compile Include="Models\Validators\ValidVehicleAttribute.cs" />
+    <Compile Include="Models\Validators\NoPastDateAttribute.cs" />
+    <Compile Include="Models\Validators\MaxDurationAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -152,6 +159,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703141558432_create-garages.resx">
       <DependentUpon>201703141558432_create-garages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703150915424_validation.resx">
+      <DependentUpon>201703150915424_validation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
