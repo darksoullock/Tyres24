@@ -24,6 +24,16 @@ namespace HelmesBootcamp.Repositories
             return this.dbSet.AsQueryable();
         }
 
+        public virtual IQueryable<TEntity> FindAllAsQueryable(Func<TEntity, bool> p)
+        {
+            return this.dbSet.Where(p).AsQueryable();
+        }
+
+        public virtual TEntity Find(params object[] keyValues)
+        {
+            return this.dbSet.Find(keyValues);
+        }
+
         public virtual TEntity FindById(object id)
         {
             return this.dbSet.Find(id);
@@ -51,6 +61,12 @@ namespace HelmesBootcamp.Repositories
 
         ~GenericRepository()
         {
+            Save();
+        }
+
+        public virtual void Remove(TEntity entity)
+        {
+            dbSet.Remove(entity);
             Save();
         }
     }

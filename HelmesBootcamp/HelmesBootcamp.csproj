@@ -117,12 +117,24 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BookingController.cs" />
+    <Compile Include="Controllers\GarageController.cs" />
+    <Compile Include="Controllers\ServiceLaneController.cs" />
     <Compile Include="Migrations\201703151743169_cancelling.cs" />
     <Compile Include="Migrations\201703151743169_cancelling.Designer.cs">
       <DependentUpon>201703151743169_cancelling.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703152142212_service-lane.cs" />
+    <Compile Include="Migrations\201703152142212_service-lane.Designer.cs">
+      <DependentUpon>201703152142212_service-lane.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703161155076_garage-line-soft-delete.cs" />
+    <Compile Include="Migrations\201703161155076_garage-line-soft-delete.Designer.cs">
+      <DependentUpon>201703161155076_garage-line-soft-delete.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DTO\Assemblers\GarageAssembler.cs" />
     <Compile Include="Models\DTO\Assemblers\BookingAssembler.cs" />
     <Compile Include="Models\DTO\BookingDTO.cs" />
+    <Compile Include="Models\DTO\GarageDTO.cs" />
     <Compile Include="Models\Enums\VehicleType.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -143,6 +155,7 @@
     <Compile Include="Models\DbBooking.cs" />
     <Compile Include="Models\BookingContext.cs" />
     <Compile Include="Models\DbGarage.cs" />
+    <Compile Include="Models\DbServiceLine.cs" />
     <Compile Include="Models\Validators\ValidVehicleAttribute.cs" />
     <Compile Include="Models\Validators\NoPastDateAttribute.cs" />
     <Compile Include="Models\Validators\MaxDurationAttribute.cs" />
@@ -190,6 +203,12 @@
     <EmbeddedResource Include="Migrations\201703151743169_cancelling.resx">
       <DependentUpon>201703151743169_cancelling.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703152142212_service-lane.resx">
+      <DependentUpon>201703152142212_service-lane.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703161155076_garage-line-soft-delete.resx">
+      <DependentUpon>201703161155076_garage-line-soft-delete.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Booking\Create.cshtml" />
@@ -202,6 +221,21 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Booking\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Garage\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Garage\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Garage\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ServiceLane\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Garage\Edit.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

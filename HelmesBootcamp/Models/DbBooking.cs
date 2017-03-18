@@ -34,6 +34,7 @@ namespace HelmesBootcamp.Models {
         [Required]
         public string Phone { get; set; }
 
+        [Required]
         public bool TyreHotel { get; set; }
 
         public string Comments { get; set; }

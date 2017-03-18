@@ -53,7 +53,7 @@ namespace HelmesBootcamp.Controllers
 
         public ActionResult Edit(int id)
         {
-            ViewBag.Garages = garageRepository.FindAllAsQueryable();
+            ViewBag.Garages = garageRepository.FindAllAsQueryable(i => !i.Deleted);
             return View(new BookingDTO(bookingRepository.FindById(id)));
         }
 
@@ -70,7 +70,7 @@ namespace HelmesBootcamp.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Garages = garageRepository.FindAllAsQueryable();
+            ViewBag.Garages = garageRepository.FindAllAsQueryable(i=>!i.Deleted);
             return View(booking);
         }
 

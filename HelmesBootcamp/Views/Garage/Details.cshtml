@@ -1,0 +1,62 @@
+﻿@model HelmesBootcamp.Models.DTO.GarageDTO
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Garage</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TyreHotel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TyreHotel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+    </dl>
+
+    <h4>Service lines:</h4>
+    @if (Model.ServiceLanesList.Count == 0)
+    {
+        <span>no service lanes</span>
+    }
+    <a href="/ServiceLane/Create/@Model.Id" class="btn btn-success btn-xs" role="button">Add</a>
+
+    <ul class="list-group" style="margin-top:5px;">
+        @foreach (var i in Model.ServiceLanesList)
+            {
+            <li class="list-group-item">
+                <a href="/ServiceLane/Delete?id=@i.Id&garageId=@Model.Id" style="float:right; color:red; margin-left:10px;">[X]</a>
+                @if (i.VansTrucks)
+                {
+                    <span class="badge">vans/trucks</span>
+                }
+                @i.Id
+            </li>
+        }
+    </ul>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -17,7 +17,11 @@ namespace HelmesBootcamp.Models.DTO
         {
             foreach (var i in typeof(DbBooking).GetProperties())
             {
-                typeof(BookingDTO).GetProperty(i.Name).SetValue(this, i.GetValue(booking));
+                var property = typeof(BookingDTO).GetProperty(i.Name);
+                if (property != null)
+                {
+                    property.SetValue(this, i.GetValue(booking));
+                }
             }
         }
 

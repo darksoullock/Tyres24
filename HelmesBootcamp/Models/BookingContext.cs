@@ -13,5 +13,7 @@ namespace HelmesBootcamp.Models{
         public DbSet<DbBooking> Bookings { get; set; }
 
         public DbSet<DbGarage> Garages { get; set; }
+
+        public DbSet<DbServiceLine> ServiceLanes { get; set; }
     }
 }
