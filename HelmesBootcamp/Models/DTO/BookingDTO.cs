@@ -27,9 +27,16 @@ namespace HelmesBootcamp.Models.DTO
 
         public int Id { get; set; }
 
+        [Required]
+        [ForeignKey(nameof(DbServiceLine)), Column(Order = 1)]
         public int? GarageId { get; set; }
 
-        public DbGarage Garage { get; set; }
+        [ForeignKey(nameof(DbServiceLine)), Column(Order = 2)]
+        public int? ServiceLineId { get; set; }
+
+        public virtual DbServiceLine ServiceLine { get; set; }
+
+        public DbGarage Garage => ServiceLine?.Garage;
 
         [Required]
         [ValidVehicle]

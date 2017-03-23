@@ -17,6 +17,7 @@ namespace HelmesBootcamp.Models.DTO.Assemblers
             booking.Comments = dto.Comments;
             booking.EndDateTime = dto.EndDateTime;
             booking.GarageId = dto.GarageId;
+            booking.ServiceLineId = dto.ServiceLineId;
             booking.Id = dto.Id;
             booking.LicensePlate = dto.LicensePlate;
             booking.Phone = dto.Phone;

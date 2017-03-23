@@ -15,9 +15,14 @@ namespace HelmesBootcamp.Models {
         public int Id { get; set; }
 
         [Required]
+        [ForeignKey(nameof(ServiceLine)), Column(Order = 1)]
         public int? GarageId { get; set; }
 
-        public virtual DbGarage Garage { get; set; }
+        [Required]
+        [ForeignKey(nameof(ServiceLine)), Column(Order = 2)]
+        public int? ServiceLineId { get; set; }
+
+        public virtual DbServiceLine ServiceLine { get; set; }
 
         [Required]
         public VehicleType Type{ get; set; }

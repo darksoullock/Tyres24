@@ -131,11 +131,20 @@
     <Compile Include="Migrations\201703161155076_garage-line-soft-delete.Designer.cs">
       <DependentUpon>201703161155076_garage-line-soft-delete.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703231057439_booking-service-line.cs" />
+    <Compile Include="Migrations\201703231057439_booking-service-line.Designer.cs">
+      <DependentUpon>201703231057439_booking-service-line.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703231130336_not-nullable-service-line.cs" />
+    <Compile Include="Migrations\201703231130336_not-nullable-service-line.Designer.cs">
+      <DependentUpon>201703231130336_not-nullable-service-line.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\DTO\Assemblers\GarageAssembler.cs" />
     <Compile Include="Models\DTO\Assemblers\BookingAssembler.cs" />
     <Compile Include="Models\DTO\BookingDTO.cs" />
     <Compile Include="Models\DTO\BookingFilterDTO.cs" />
     <Compile Include="Models\DTO\GarageDTO.cs" />
+    <Compile Include="Models\DTO\MonthlyDynamicsDTO.cs" />
     <Compile Include="Models\Enums\VehicleType.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -209,6 +218,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703161155076_garage-line-soft-delete.resx">
       <DependentUpon>201703161155076_garage-line-soft-delete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703231057439_booking-service-line.resx">
+      <DependentUpon>201703231057439_booking-service-line.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703231130336_not-nullable-service-line.resx">
+      <DependentUpon>201703231130336_not-nullable-service-line.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

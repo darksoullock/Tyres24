@@ -78,27 +78,30 @@ namespace HelmesBootcamp.Controllers
                 if (!garage.ServiceLanes.Any(i => i.VansTrucks))
                     ModelState.AddModelError(nameof(BookingDTO.GarageId), "No vans/truck service lines available in this garage");
             }
-
-            CheckAvailableSpace(booking, garage);
-
         }
 
         // TODO move somewhere
-        private void CheckAvailableSpace(BookingDTO booking, DbGarage garage)
+        private int? FindAvailableSpace(BookingDTO booking)
         {
             var intersectingBookings = bookingRepository.FindAllAsQueryable(i =>
                                             i.GarageId == booking.GarageId &&
                                             i.StartDateTime < booking.EndDateTime &&
                                             i.EndDateTime > booking.StartDateTime);
 
-            bool check;
-            int lines = garage.ServiceLanes.Count(i => !i.Deleted);
-            check = intersectingBookings.Count() < lines; // free lines available
-
-            if (check && booking.Type != Models.Enums.VehicleType.Car)
+            var takenSLs = intersectingBookings.Select(j => j.ServiceLineId.Value).ToList();
+            var freeSLs = garageRepository.FindById(booking.GarageId).ServiceLanes.Where(i => !i.Deleted && !takenSLs.Contains(i.Id)).ToList();
+            if (booking.Type!=Models.Enums.VehicleType.Car)
             {
-                int truckLines = garage.ServiceLanes.Count(i => !i.Deleted && i.VansTrucks);
-                check = intersectingBookings.Count(i => i.Type != Models.Enums.VehicleType.Car) < truckLines; // free van/truck lines available
+                freeSLs = freeSLs.Where(i => i.VansTrucks).ToList();
+            }
+
+            if (freeSLs.Count == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return freeSLs.OrderBy(i => i.VansTrucks).First().Id;
             }
         }
 
@@ -107,6 +110,11 @@ namespace HelmesBootcamp.Controllers
         public ActionResult Create(BookingDTO booking)
         {
             UpdateBooking(booking);
+            var line = FindAvailableSpace(booking);
+            if (line==null)
+                ModelState.AddModelError(nameof(BookingDTO.GarageId), "No free service lines available in this garage at this time");
+            else
+                booking.ServiceLineId = line.Value;
 
             if (ModelState.IsValid)
             {
@@ -129,6 +137,11 @@ namespace HelmesBootcamp.Controllers
         public ActionResult Edit(BookingDTO booking)
         {
             UpdateBooking(booking);
+            var line = FindAvailableSpace(booking);
+            if (line == null)
+                ModelState.AddModelError(nameof(BookingDTO.GarageId), "No free service lines available in this garage at this time");
+            else
+                booking.ServiceLineId = line.Value;
 
             if (ModelState.IsValid)
             {

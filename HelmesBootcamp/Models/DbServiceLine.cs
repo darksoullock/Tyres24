@@ -22,5 +22,8 @@ namespace HelmesBootcamp.Models
         public virtual DbGarage Garage { get; set; }
 
         public bool Deleted { get; set; }
+
+        [InverseProperty(nameof(DbBooking.ServiceLine))]
+        public virtual ICollection<DbBooking> Bookings { get; set; }
     }
 }
