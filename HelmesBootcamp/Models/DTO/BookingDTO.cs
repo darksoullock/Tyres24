@@ -40,9 +40,9 @@ namespace HelmesBootcamp.Models.DTO
         [Display(Name = "Booking start date and time")]
         public DateTime StartDateTime { get; set; }
 
-        [Required]
-        [NoPastDate]
-        [MaxDuration(2)]
+        //[Required]
+        //[NoPastDate]
+        //[MaxDuration(2)]
         [Display(Name = "Booking end date and time")]
         public DateTime EndDateTime { get; set; }
 

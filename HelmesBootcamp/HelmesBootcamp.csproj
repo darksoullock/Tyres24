@@ -134,6 +134,7 @@
     <Compile Include="Models\DTO\Assemblers\GarageAssembler.cs" />
     <Compile Include="Models\DTO\Assemblers\BookingAssembler.cs" />
     <Compile Include="Models\DTO\BookingDTO.cs" />
+    <Compile Include="Models\DTO\BookingFilterDTO.cs" />
     <Compile Include="Models\DTO\GarageDTO.cs" />
     <Compile Include="Models\Enums\VehicleType.cs" />
     <Compile Include="Global.asax.cs">
