@@ -1,0 +1,67 @@
+﻿@model IEnumerable<HelmesBootcamp.Models.DTO.WeeklyBookingsDTO>
+
+@{
+    ViewBag.Title = "WeeklyBookings";
+}
+
+<h2>WeeklyBookings</h2>
+
+<div class="btn-group" role="group" style="margin:5px;">
+    @{
+        DateTime start = ViewBag.Current;
+        var weekEnd = start.AddDays(7);
+        var weekPrev = start.AddDays(-7);
+        var current = start.ToShortDateString() + " - " + weekEnd.ToShortDateString();
+        var prev = start.ToShortDateString() + " - " + weekEnd.ToShortDateString();
+        var next = start.ToShortDateString() + " - " + weekEnd.ToShortDateString();
+    }
+    <a href="/Statistics/WeeklyBookings?_week=@weekPrev&type=@ViewBag.Type" role="button" class="btn btn-default"><< @prev</a>
+    <a href="/Statistics/WeeklyBookings?_week=@start&type=@ViewBag.Type" role="button" class="btn btn-primary disabled">@current</a>
+    <a href="/Statistics/WeeklyBookings?_week=@weekEnd&type=@ViewBag.Type" role="button" class="btn btn-default">@next >></a>
+</div>
+
+<div class="btn-group" role="group" style="margin:5px;">
+    @{
+        int type = ViewBag.Type;
+        string carclass = type == 1 ? "btn btn-primary disabled" : "btn btn-default";
+        string vanclass = type == 2 ? "btn btn-primary disabled" : "btn btn-default";
+        string totalclass = type == 3 ? "btn btn-primary disabled" : "btn btn-default";
+    }
+    <a href="/Statistics/WeeklyBookings?_week=@start&type=1" role="button" class="@carclass">Car</a>
+    <a href="/Statistics/WeeklyBookings?_week=@start&type=2" role="button" class="@vanclass">Van/Truck</a>
+    <a href="/Statistics/WeeklyBookings?_week=@start&type=3" role="button" class="@totalclass">Total</a>
+</div>
+
+@{
+    var days = new[] { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday, DayOfWeek.Saturday, DayOfWeek.Sunday, };
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Garage)
+        </th>
+        @foreach (var day in days)
+        {
+            <th>
+                @day.ToString()
+            </th>
+        }
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Garage)
+            </td>
+            @foreach (var day in days)
+            {
+                <td>
+                    @(item.Days.ContainsKey(day)?item.Days[day]:0)
+                </td>
+            }
+        </tr>
+    }
+
+</table>

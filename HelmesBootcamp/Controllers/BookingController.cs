@@ -88,7 +88,7 @@ namespace HelmesBootcamp.Controllers
                                             i.StartDateTime < booking.EndDateTime &&
                                             i.EndDateTime > booking.StartDateTime);
 
-            var takenSLs = intersectingBookings.Select(j => j.ServiceLineId.Value).ToList();
+            var takenSLs = intersectingBookings.Select(j => j.ServiceLineId).ToList();
             var freeSLs = garageRepository.FindById(booking.GarageId).ServiceLanes.Where(i => !i.Deleted && !takenSLs.Contains(i.Id)).ToList();
             if (booking.Type!=Models.Enums.VehicleType.Car)
             {

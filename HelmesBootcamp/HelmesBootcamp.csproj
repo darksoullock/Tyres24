@@ -119,6 +119,9 @@
     <Compile Include="Controllers\BookingController.cs" />
     <Compile Include="Controllers\GarageController.cs" />
     <Compile Include="Controllers\ServiceLaneController.cs" />
+    <Compile Include="Controllers\StatisticsController.cs" />
+    <Compile Include="Handlers\GetWeeklyBookings.cs" />
+    <Compile Include="Handlers\GetMonthlyDynamics.cs" />
     <Compile Include="Migrations\201703151743169_cancelling.cs" />
     <Compile Include="Migrations\201703151743169_cancelling.Designer.cs">
       <DependentUpon>201703151743169_cancelling.cs</DependentUpon>
@@ -144,6 +147,7 @@
     <Compile Include="Models\DTO\BookingDTO.cs" />
     <Compile Include="Models\DTO\BookingFilterDTO.cs" />
     <Compile Include="Models\DTO\GarageDTO.cs" />
+    <Compile Include="Models\DTO\WeeklyBookingsDTO.cs" />
     <Compile Include="Models\DTO\MonthlyDynamicsDTO.cs" />
     <Compile Include="Models\Enums\VehicleType.cs" />
     <Compile Include="Global.asax.cs">
@@ -252,6 +256,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Garage\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Statistics\MonthlyDynamics.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Statistics\WeeklyBookings.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

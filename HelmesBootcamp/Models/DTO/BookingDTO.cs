@@ -29,10 +29,10 @@ namespace HelmesBootcamp.Models.DTO
 
         [Required]
         [ForeignKey(nameof(DbServiceLine)), Column(Order = 1)]
-        public int? GarageId { get; set; }
+        public int GarageId { get; set; }
 
         [ForeignKey(nameof(DbServiceLine)), Column(Order = 2)]
-        public int? ServiceLineId { get; set; }
+        public int ServiceLineId { get; set; }
 
         public virtual DbServiceLine ServiceLine { get; set; }
 

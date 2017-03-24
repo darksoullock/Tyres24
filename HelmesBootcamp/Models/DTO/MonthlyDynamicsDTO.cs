@@ -10,6 +10,7 @@ namespace HelmesBootcamp.Models.DTO
         public string Garage { get; set; }
         public int ServiceLine { get; set; }
         public int PreviousMonth { get; set; }
-        public int CurrenttMonth { get; set;}
+        public int CurrentMonth { get; set; }
+        public string Percentage => PreviousMonth == 0 ? "-" : (CurrentMonth*100 / PreviousMonth).ToString();
     }
 }

@@ -16,11 +16,11 @@ namespace HelmesBootcamp.Models {
 
         [Required]
         [ForeignKey(nameof(ServiceLine)), Column(Order = 1)]
-        public int? GarageId { get; set; }
+        public int GarageId { get; set; }
 
         [Required]
         [ForeignKey(nameof(ServiceLine)), Column(Order = 2)]
-        public int? ServiceLineId { get; set; }
+        public int ServiceLineId { get; set; }
 
         public virtual DbServiceLine ServiceLine { get; set; }
 

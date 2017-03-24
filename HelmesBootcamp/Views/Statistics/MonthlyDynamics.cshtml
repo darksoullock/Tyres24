@@ -1,0 +1,48 @@
+﻿@model IEnumerable<HelmesBootcamp.Models.DTO.MonthlyDynamicsDTO>
+
+@{
+    ViewBag.Title = "MonthlyDynamics";
+}
+
+<h2>MonthlyDynamics</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Garage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ServiceLine)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PreviousMonth)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CurrentMonth)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Percentage)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Garage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServiceLine)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PreviousMonth)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CurrentMonth)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Percentage)<span>%</span>
+        </td>
+    </tr>
+}
+
+</table>
