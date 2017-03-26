@@ -18,6 +18,7 @@ namespace HelmesBootcamp.Models.DTO.Assemblers
             garage.Name = dto.Name;
             garage.Address = dto.Address;
             garage.TyreHotel = dto.TyreHotel;
+            garage.TyreSlots = dto.TyreSlots;
             return garage;
         }
     }

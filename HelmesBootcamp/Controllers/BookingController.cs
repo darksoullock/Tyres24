@@ -45,7 +45,7 @@ namespace HelmesBootcamp.Controllers
         // TODO move
         private List<DbBooking> GetFilteredBookings(BookingFilterDTO filter)
         {
-            var bookings = bookingRepository.FindAllAsQueryable(i=>i.GarageId == filter.GarageId);
+            var bookings = bookingRepository.FindAllAsQueryable(i => i.GarageId == filter.GarageId);
             if (filter.Van)
             {
                 bookings = bookings.Where(i => i.Type != Models.Enums.VehicleType.Car);
@@ -55,7 +55,7 @@ namespace HelmesBootcamp.Controllers
                 bookings = bookings.Where(i => i.Type == Models.Enums.VehicleType.Car);
             }
 
-            if (filter.Date!=null)
+            if (filter.Date != null)
             {
                 bookings = bookings.Where(i => i.StartDateTime.Date == filter.Date.Value.Date);
             }
@@ -86,11 +86,12 @@ namespace HelmesBootcamp.Controllers
             var intersectingBookings = bookingRepository.FindAllAsQueryable(i =>
                                             i.GarageId == booking.GarageId &&
                                             i.StartDateTime < booking.EndDateTime &&
-                                            i.EndDateTime > booking.StartDateTime);
+                                            i.EndDateTime > booking.StartDateTime &&
+                                            i.Id != booking.Id);
 
             var takenSLs = intersectingBookings.Select(j => j.ServiceLineId).ToList();
             var freeSLs = garageRepository.FindById(booking.GarageId).ServiceLanes.Where(i => !i.Deleted && !takenSLs.Contains(i.Id)).ToList();
-            if (booking.Type!=Models.Enums.VehicleType.Car)
+            if (booking.Type != Models.Enums.VehicleType.Car)
             {
                 freeSLs = freeSLs.Where(i => i.VansTrucks).ToList();
             }
@@ -111,10 +112,22 @@ namespace HelmesBootcamp.Controllers
         {
             UpdateBooking(booking);
             var line = FindAvailableSpace(booking);
-            if (line==null)
+            if (line == null)
                 ModelState.AddModelError(nameof(BookingDTO.GarageId), "No free service lines available in this garage at this time");
             else
                 booking.ServiceLineId = line.Value;
+
+            int slots = !booking.TyreHotel ? 0 : booking.Type == Models.Enums.VehicleType.Car ? 1 : 2;
+            var garage = garageRepository.FindById(booking.GarageId);
+            if (garage.TyreSlots < slots)
+            {
+                ModelState.AddModelError(nameof(BookingDTO.TyreHotel), "Not enough free slots");
+            }
+            else
+            {
+                garage.TyreSlots -= slots;
+                garageRepository.Update(garage);
+            }
 
             if (ModelState.IsValid)
             {
@@ -136,6 +149,7 @@ namespace HelmesBootcamp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(BookingDTO booking)
         {
+            // if car type or hotel changed or check for tyre slots here
             UpdateBooking(booking);
             var line = FindAvailableSpace(booking);
             if (line == null)
@@ -152,7 +166,7 @@ namespace HelmesBootcamp.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Garages = garageRepository.FindAllAsQueryable(i=>!i.Deleted);
+            ViewBag.Garages = garageRepository.FindAllAsQueryable(i => !i.Deleted);
             return View(booking);
         }
 
@@ -164,6 +178,14 @@ namespace HelmesBootcamp.Controllers
         public ActionResult Cancel(int id)
         {
             var booking = bookingRepository.FindById(id);
+            int slots = !booking.TyreHotel ? 0 : booking.Type == Models.Enums.VehicleType.Car ? 1 : 2;
+            if (slots > 0)
+            {
+                var garage = garageRepository.FindById(booking.GarageId);
+                garage.TyreSlots += slots;
+                garageRepository.Update(garage);
+            }
+            
             booking.ChangedAt = DateTime.Now;
             booking.Cancelled = true;
             bookingRepository.Update(booking);

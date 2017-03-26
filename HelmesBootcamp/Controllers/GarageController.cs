@@ -34,6 +34,11 @@ namespace HelmesBootcamp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(GarageDTO garage)
         {
+            if (garage.TyreHotel && garage.TyreSlots==null)
+            {
+                ModelState.AddModelError(nameof(GarageDTO.TyreSlots), "Should be filled");
+            }
+
             if (ModelState.IsValid)
             {
                 garageRepository.Insert(GarageAssembler.Create(garage));
@@ -57,6 +62,11 @@ namespace HelmesBootcamp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(GarageDTO garageDTO)
         {
+            if (garageDTO.TyreHotel && garageDTO.TyreSlots == null)
+            {
+                ModelState.AddModelError(nameof(GarageDTO.TyreSlots), "Should be filled");
+            }
+
             if (ModelState.IsValid)
             {
                 var garage = garageRepository.FindById(garageDTO.Id);

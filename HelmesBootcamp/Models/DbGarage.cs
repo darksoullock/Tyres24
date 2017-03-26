@@ -21,6 +21,8 @@ namespace HelmesBootcamp.Models
         [Required]
         public bool TyreHotel { get; set; }
 
+        public int? TyreSlots { get; set; }
+
         [Required]
         [StringLength(200)]
         public string Address { get; set; }

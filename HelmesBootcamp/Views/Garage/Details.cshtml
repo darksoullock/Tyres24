@@ -26,6 +26,17 @@
             @Html.DisplayFor(model => model.TyreHotel)
         </dd>
 
+        @if (Model.TyreHotel)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.TyreSlots)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TyreSlots)
+            </dd>
+        }
+
         <dt>
             @Html.DisplayNameFor(model => model.Address)
         </dt>

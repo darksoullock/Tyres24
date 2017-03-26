@@ -32,6 +32,9 @@ namespace HelmesBootcamp.Models.DTO
 
         public bool TyreHotel { get; set; }
 
+        [Range(1,400)]
+        public int? TyreSlots { get; set; }
+
         [Required]
         [StringLength(200)]
         public string Address { get; set; }
