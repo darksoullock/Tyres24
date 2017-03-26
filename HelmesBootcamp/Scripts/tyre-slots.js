@@ -6,4 +6,5 @@
             $("#TyreSlots").attr('disabled', '');
         }
     });
+    $('#TyreHotel').change()
 };
