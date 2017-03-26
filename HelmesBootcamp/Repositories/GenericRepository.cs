@@ -29,6 +29,16 @@ namespace HelmesBootcamp.Repositories
             return this.dbSet.Where(p).AsQueryable();
         }
 
+        public virtual int Count()
+        {
+            return this.dbSet.Count();
+        }
+
+        public virtual int Count(Func<TEntity, bool> p)
+        {
+            return this.dbSet.Count(p);
+        }
+
         public virtual TEntity Find(params object[] keyValues)
         {
             return this.dbSet.Find(keyValues);
@@ -42,6 +52,12 @@ namespace HelmesBootcamp.Repositories
         public virtual void Insert(TEntity entity)
         {
             this.dbSet.Add(entity);
+            Save();
+        }
+
+        public virtual void Insert(IEnumerable<TEntity> entities)
+        {
+            this.dbSet.AddRange(entities);
             Save();
         }
 

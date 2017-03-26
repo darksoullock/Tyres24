@@ -117,6 +117,7 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BookingController.cs" />
+    <Compile Include="Controllers\ForecastController.cs" />
     <Compile Include="Controllers\GarageController.cs" />
     <Compile Include="Controllers\ServiceLaneController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
@@ -145,6 +146,10 @@
     <Compile Include="Migrations\201703252127073_tyre-slots.cs" />
     <Compile Include="Migrations\201703252127073_tyre-slots.Designer.cs">
       <DependentUpon>201703252127073_tyre-slots.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703261113085_weather.cs" />
+    <Compile Include="Migrations\201703261113085_weather.Designer.cs">
+      <DependentUpon>201703261113085_weather.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\DTO\Assemblers\GarageAssembler.cs" />
     <Compile Include="Models\DTO\Assemblers\BookingAssembler.cs" />
@@ -177,6 +182,7 @@
     <Compile Include="Models\Validators\ValidVehicleAttribute.cs" />
     <Compile Include="Models\Validators\NoPastDateAttribute.cs" />
     <Compile Include="Models\Validators\MaxDurationAttribute.cs" />
+    <Compile Include="Models\DbWeatherInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
   </ItemGroup>
@@ -236,6 +242,9 @@
     <EmbeddedResource Include="Migrations\201703252127073_tyre-slots.resx">
       <DependentUpon>201703252127073_tyre-slots.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703261113085_weather.resx">
+      <DependentUpon>201703261113085_weather.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Booking\Create.cshtml" />
@@ -269,6 +278,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Statistics\WeeklyBookings.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Forecast\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

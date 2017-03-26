@@ -1,0 +1,34 @@
+﻿@model IEnumerable<HelmesBootcamp.Models.DbWeatherInfo>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Forecast</h2>
+
+<table class="table table-striped table-bordered">
+    <tr>
+        @foreach (var i in Model)
+        {
+            <td>
+                @i.Date.ToShortDateString()
+            </td>
+        }
+    </tr>
+    <tr>
+        @foreach (var i in Model)
+        {
+            <td>
+                @(i.Snow ? "!" : " ")
+            </td>
+        }
+    </tr>
+    <tr>
+        @foreach (var i in Model)
+        {
+            <td>
+                <a href="/Forecast/Toggle/@i.Id">toggle</a>
+            </td>
+        }
+    </tr>
+</table>
